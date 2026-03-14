@@ -92,7 +92,17 @@ public class Acumuladores {
 	 * @return
 	 */
 	public boolean hayInterseccionPorColumna(int[][] mat1, int[][]mat2) { 
-		throw new RuntimeException("Metodo no implementado aun!!!");
+		if (esVacio(mat1) || esVacio(mat2)) {
+			return false;
+		}
+		if (tamanio(mat1[0]) != tamanio(mat2[0])) {
+			return false;
+		}
+		boolean hayInterseccionXCol = true;
+		for (int col = 0; col < tamanio(mat1[0]); col++) {
+			hayInterseccionXCol = hayInterseccionXCol && hayInterseccion(mat1, mat2, col);
+		}
+		return hayInterseccionXCol;
 	}
 
   private boolean esVacio(int[][] mat) {
@@ -167,5 +177,21 @@ public class Acumuladores {
 			suma += fila[i];
 		}
 		return suma;
+	}
+
+  private boolean hayInterseccion(int[][] mat1, int[][] mat2, int col) {
+		boolean hayInterseccion = false;
+		for (int fila = 0; fila < tamanio(mat2); fila++) {
+			hayInterseccion = hayInterseccion || estaElemento(mat1, col, mat2[fila][col]);
+		}
+		return hayInterseccion;
+	}
+
+	private boolean estaElemento(int[][] mat, int col, int elem) {
+		boolean esta = false;
+		for (int fila = 0; fila < tamanio(mat); fila++) {
+			esta = esta || (mat[fila][col] == elem);
+		}
+		return esta;
 	}
 }
