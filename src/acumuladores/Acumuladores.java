@@ -14,7 +14,17 @@ public class Acumuladores {
 	 * @return
 	 */
 	public boolean todosMultiplosEnAlgunaFila(int[][] mat, int num) { 
-		throw new RuntimeException("Metodo no implementado aun!!!");
+		if (esVacio(mat)) {
+			return false;
+		}
+		if (!esPositivo(num)) {
+			return false;
+		}
+		boolean esFilaMultiploN = false;
+		for (int fila = 0; fila < tamanio(mat); fila++) {
+			esFilaMultiploN = esFilaMultiploN || sonTodosMultiplos(mat[fila], num);
+		}
+		return esFilaMultiploN;
 	}
 	
 	/**
@@ -61,5 +71,43 @@ public class Acumuladores {
 	 */
 	public boolean hayInterseccionPorColumna(int[][] mat1, int[][]mat2) { 
 		throw new RuntimeException("Metodo no implementado aun!!!");
+	}
+
+  private boolean esVacio(int[][] mat) {
+		return mat == null || mat.length == 0 || mat[0].length == 0;
+	}
+
+	private boolean esPositivo(int numero) {
+		return numero > 0;
+	}
+
+	private int tamanio(int[][] mat) {
+		if (esVacio(mat)) {
+			return 0;
+		}
+		return mat.length;
+	}
+
+	private boolean sonTodosMultiplos(int[] fila, int num) {
+		boolean esMultiplo = true;
+		for (int i = 0; i < tamanio(fila); i++) {
+			esMultiplo = esMultiplo && esMultiplo(fila[i], num);
+		}
+		return esMultiplo;
+	}
+
+	private boolean esMultiplo(int num1, int num2) {
+		return num1 % num2 == 0;
+	}
+
+	private int tamanio(int[] arr) {
+		if (esVacio(arr)) {
+			return 0;
+		}
+		return arr.length;
+	}
+
+	private boolean esVacio(int[] arr) {
+		return arr == null || arr.length == 0;
 	}
 }
