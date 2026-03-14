@@ -65,7 +65,19 @@ public class Acumuladores {
 	 * @return
 	 */
 	public boolean algunaFilaSumaMasQueLaColumna(int[][] mat, int nColum) { 
-		throw new RuntimeException("Metodo no implementado aun!!!");
+		if (esVacio(mat)) {
+			return false;
+		}
+		if (!esColumnaValida(mat, nColum)) {
+			return false;
+		}
+		boolean filaSumaMasQueCol = false;
+		int sumaCol = sumarElementosColumna(mat, nColum);
+		for (int fila = 0; fila < tamanio(mat); fila++) {
+			int sumaFila = sumarElementosFila(mat[fila]);
+			filaSumaMasQueCol = filaSumaMasQueCol || (sumaFila > sumaCol);
+		}
+		return filaSumaMasQueCol;
 	}
 	
 	/**
@@ -135,5 +147,25 @@ public class Acumuladores {
 			esta = esta || (elem == fila[i]);
 		}
 		return esta;
+	}
+
+  private boolean esColumnaValida(int[][] mat, int col) {
+		return col >= 0 && col < tamanio(mat[0]);
+	}
+	
+	private int sumarElementosColumna(int[][] mat, int col) {
+		int suma = 0;
+		for (int fila = 0; fila < tamanio(mat); fila++) {
+			suma += mat[fila][col];
+		}
+		return suma;
+	}
+	
+	private int sumarElementosFila(int[] fila) {
+		int suma = 0;
+		for (int i = 0; i < tamanio(fila); i++) {
+			suma += fila[i];
+		}
+		return suma;
 	}
 }
